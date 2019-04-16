@@ -1,7 +1,9 @@
 # dask_k8
 
-Create Dask clusters in Kubernetes easily. This library is directed to be able to start a Dask client from _outside_ of a Kubernetes cluster 
-to a Dask scheduler/cluster running _inside_ of a Kubernetes cluster.
+Create Dask clusters in Kubernetes easily.
+
+The aim of this package is to be able to start a Dask client from _outside_ of a Kubernetes cluster 
+connecting to a Dask scheduler/workers running _inside_ of a Kubernetes cluster.
 
 The dashboard of the dask scheduler running inside Kubernetes is accessible, the corresponding url is printed after the cluster creation.
 
