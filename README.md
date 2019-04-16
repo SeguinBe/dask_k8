@@ -7,13 +7,19 @@ The dashboard of the dask scheduler running inside Kubernetes is accessible, the
 
 First ensure you have proper Kubernetes access, try running `kubectl get pods` for instance.
 
+### Installation
+
+```
+pip install git+https://github.com/SeguinBe/dask_k8.git
+```
+
 ### Example usage
 
 ```python
 from dask_k8 import DaskCluster
 
 # Use a kubernetes namespace where you have the proper rights, the cluster_id is to distinguish between possible different clusters
-cluster = DaskCluster(namespace="dhlab", cluster_id="seguin0")
+cluster = DaskCluster(namespace="dhlab", cluster_id="seguin-0")
 
 # Initialize cluster
 cluster.create()
@@ -33,7 +39,7 @@ In order not to forget to release the resources, the following can be done:
 ```python
 from dask_k8 import DaskCluster
 
-cluster = DaskCluster(namespace="dhlab", cluster_id="seguin_0")
+cluster = DaskCluster(namespace="dhlab", cluster_id="seguin-0")
 
 with cluster:
     dask_client = cluster.make_dask_client()  # Waits for the scheduler to be started
@@ -48,7 +54,7 @@ Arbitrary pod specification can be given both for the scheduler and the worker.
 ```python
 from dask_k8 import DaskCluster
 
-cluster = dask_k8.DaskCluster(namespace="dhlab", cluster_id="seguin-0", worker_pod_spec="""
+cluster = DaskCluster(namespace="dhlab", cluster_id="seguin-0", worker_pod_spec="""
   containers:
     - image: daskdev/dask:latest
       args: [dask-worker, $(DASK_SCHEDULER_ADDRESS), --nthreads, '1', --no-bokeh, --memory-limit, 4GB, --death-timeout, '60']

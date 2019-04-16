@@ -1,8 +1,14 @@
-#!/usr/bin/env python
+import pathlib
 from setuptools import setup, find_packages
 
-setup(name='dask_k8',
-      version='0.1',
+# The directory containing this file
+HERE = pathlib.Path(__file__).parent
+
+# The text of the README file
+README = (HERE / "README.md").read_text()
+
+setup(name='dask-k8',
+      version='0.1.1',
       license='GPL',
       author="Benoit Seguin",
       url='https://github.com/SeguinBe/dask_k8',

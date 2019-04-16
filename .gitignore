@@ -1,0 +1,5 @@
+.idea
+_*
+build
+dist
+*.egg-info
