@@ -107,9 +107,13 @@ class DaskCluster:
 
         # Get the host IP of the scheduler
         v1 = kube_client.CoreV1Api()
-        dask_scheduler_external_ip = v1.list_namespaced_pod(self.namespace,
-                                                            label_selector=f"user={self.cluster_id},app=dask-scheduler"
-                                                            ).items[0].status.host_ip
+        while True:
+            dask_scheduler_external_ip = v1.list_namespaced_pod(self.namespace,
+                                                                label_selector=f"user={self.cluster_id},app=dask-scheduler"
+                                                                ).items[0].status.host_ip
+            if dask_scheduler_external_ip is not None:
+                break
+            sleep(2)
 
         self._initialized = True
         self._scheduler = f"tcp://{dask_scheduler_external_ip}:{dask_scheduler_external_port}"

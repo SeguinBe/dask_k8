@@ -40,6 +40,8 @@ cluster.close()
 In order not to forget to release the resources, the following can be done:
 ```python
 from dask_k8 import DaskCluster
+from dask.diagnostics import progress
+from dask.distributed import wait
 
 cluster = DaskCluster(namespace="dhlab", cluster_id="seguin-0")
 
@@ -47,7 +49,11 @@ with cluster:
     dask_client = cluster.make_dask_client()  # Waits for the scheduler to be started
     cluster.scale(40)  # Waits for the workers to be started
     # Compute
-    dask_client.compute(...)
+    dask_client.compute(..., sync=True)
+    # Or
+    future = dask_client.compute(...)
+    progress(future)
+    wait(future)
 ```
 
 The corresponding output is:
