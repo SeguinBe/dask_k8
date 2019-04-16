@@ -161,7 +161,7 @@ class DaskCluster:
             for _ in range(retries):
                 try:
                     self._client = Client(self._scheduler, timeout=timeout)
-                except OSError:
+                except (OSError, TimeoutError):
                     print("Could not connect to scheduler, retrying...")
         return self._client
 
