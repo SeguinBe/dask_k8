@@ -1,7 +1,7 @@
 
 scheduler_pod_spec_yaml = """
   containers:
-    - image: daskdev/dask:latest
+    - image: daskdev/dask:1.2.0
       command: ["sh", "-c"]
       args:
         - dask-scheduler --port 8786 --bokeh-port 8787
@@ -18,7 +18,7 @@ scheduler_pod_spec_yaml = """
 
 worker_pod_spec_yaml = """
   containers:
-    - image: daskdev/dask:latest
+    - image: daskdev/dask:1.2.0
       args: [dask-worker, $(DASK_SCHEDULER_ADDRESS), --nthreads, '1', --no-bokeh, --memory-limit, 4GB, --death-timeout, '60']
       imagePullPolicy: Always
       name: dask-worker
