@@ -20,7 +20,7 @@ setup(name='dask-k8',
             'Programming Language :: Python :: 3.6',
       ],
       install_requires=[
-          'distributed>=1.27',
+          'distributed>=1.27,<2.0.0',
           'requests>=2.20',
           'kubernetes>=9.0',
       ])
